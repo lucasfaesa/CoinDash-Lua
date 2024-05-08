@@ -1,6 +1,6 @@
 
 
-local backgound_image = require('entities/background')
+require("entities/background")
 require("entities/player")
 
 local paused = false
@@ -14,11 +14,6 @@ local system_key_map = {
     end,
 }
 
-function DrawBackground()
-    local background_quad = love.graphics.newQuad(0, 0, love.graphics.getWidth(), love.graphics.getHeight(), backgound_image:getWidth(), backgound_image:getHeight())
-    love.graphics.draw(backgound_image, background_quad, 0,0)
-end
-
 -- ## LOAD ##
 function love.load()
     player.LOAD()
@@ -26,7 +21,7 @@ end
 
 -- ## DRAW ##
 function love.draw()
-    DrawBackground()
+    background.DRAW()
     player.DRAW()
 end
 
