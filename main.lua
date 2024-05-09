@@ -1,7 +1,9 @@
 
 
+local world = require("entities/world")
 require("entities/background")
 require("entities/player")
+require("entities/coin")
 
 local paused = false
 
@@ -21,7 +23,9 @@ end
 
 -- ## DRAW ##
 function love.draw()
+    -- ALWAYS pay attention to order of drawing, background needs to be draw first
     background.DRAW()
+    coin.DRAW()
     player.DRAW()
 end
 
@@ -40,4 +44,5 @@ end
 
 function love.update(dt)
     player.UPDATE(dt)
+    world:update(dt)
 end
