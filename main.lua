@@ -3,9 +3,9 @@
 local world = require("entities/world")
 require("entities/background")
 require("entities/player")
---require("entities/coin")
 require('managers.score_manager')
 require('managers/coins_manager')
+require('managers.game_manager')
 
 local paused = false
 
@@ -20,19 +20,19 @@ local system_key_map = {
 
 -- ## LOAD ##
 function love.load()
-    player.LOAD()
+    --player.LOAD()
     score_manager.LOAD()
-    coins_manager.instantiate_coins(1)
+    --coins_manager.instantiate_coins(1)
+    game_manager.start_game()
 end
 
 -- ## DRAW ##
 function love.draw()
     -- ALWAYS pay attention to order of drawing, background needs to be draw first
     background.DRAW()
-    score_manager.DRAW()
     coins_manager.DRAW()
-    --coin.DRAW()
     player.DRAW()
+    score_manager.DRAW()
 end
 
 -- ## KEY PRESSES LISTENER ##
@@ -49,6 +49,13 @@ function love.keyreleased(released_key)
 end
 
 function love.update(dt)
+    if game_manager.can_check_collisions then
+        world:update(dt)
+    end
+
     player.UPDATE(dt)
-    world:update(dt)
+    game_manager.UPDATE(dt)
+    coins_manager.UPDATE()
+
+
 end

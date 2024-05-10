@@ -1,6 +1,6 @@
 
 local world = require("entities/world")
-require('managers/score_manager')
+--require('managers.coins_manager')
 
 -- Define the Coin class
 local Coin = {}
@@ -8,13 +8,12 @@ local Coin = {}
 -- This line sets the __index metamethod of the Coin table to itself. This is typically done to allow instances of this class to inherit methods from the class table.
 Coin.__index = Coin -- Set the metatable for inheritance
 
-function Coin:new(x, y)
+function Coin:new(pos_x, pos_y)
     --setmetatable({}, Coin): This line sets the metatable of the {} table to be Coin. This effectively makes {} an instance of the Coin class.
     local coin = setmetatable({}, Coin) -- Create a new instance
-
     coin.tag = "coin"
-    coin.body = love.physics.newBody(world, x, y, 'dynamic')
-    coin.shape = love.physics.newCircleShape(0, 0, 10)
+    coin.body = love.physics.newBody(world, pos_x, pos_y, 'dynamic')
+    --coin.shape = love.physics.newCircleShape(0, 0, 10)
     coin.sprite = love.graphics.newImage('assets/sprites/coin/coin-frame-1.png')
     coin.scale = { x = 0.35, y = 0.35 }
     coin.image_size = { width = 100, height = 100 }
@@ -33,41 +32,31 @@ function Coin:new(x, y)
     return coin
 end
 
-function Coin:getData()
-    return {
-        tag = self.tag,
-        body = self.body,
-        shape = self.shape,
-        sprite = self.sprite,
-        scale = self.scale,
-        image_size = self.image_size,
-        is_active = self.is_active,
-        sprite_offset = self.sprite_offset,
-        radius = self.radius,
-    }
-end
-
 function Coin:draw()
-    if (not self.is_active) then
-        return
-    end
     local coin_pos_x, coin_pos_y = self.body:getWorldCenter()
-
+    --print('here: x' .. coin_pos_x .. ' y ' .. coin_pos_y)
+    
     love.graphics.draw(self.sprite, coin_pos_x - self.sprite_offset.x, coin_pos_y - self.sprite_offset.y, 0, self.scale.x, self.scale.y)
     love.graphics.circle('line', coin_pos_x, coin_pos_y, self.radius)
 end
 
-function Coin:pickedUp()
-    self.fixture:destroy()
-    self.body:destroy()
-    self.body = nil
+function Coin:activate_coin(x, y)
+    self.body:setPosition(x, y)
+    self.is_active = true
+end
+
+function Coin:deactivate_coin()
+    self.body:setActive(false)
     self.is_active = false
-    score_manager.AddPoints(1)
+end
+
+function Coin:pickedUp()
+    coins_manager.coin_picked(self)
 end
 
 -- Static method to draw a coin
-function Coin.DRAW(coin_instance)
-    coin_instance:draw()
+function Coin:DRAW()
+    self:draw()
 end
 
 return Coin
