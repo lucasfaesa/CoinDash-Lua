@@ -55,7 +55,7 @@ function love.update(dt)
 
     player.UPDATE(dt)
     game_manager.UPDATE(dt)
-    coins_manager.UPDATE()
+    coins_manager.UPDATE(dt)
 
 
 end

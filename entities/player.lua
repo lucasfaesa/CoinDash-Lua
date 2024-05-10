@@ -90,7 +90,6 @@ function player.animate_player_sprite()
         if current_sprite_index > #player.walking_sprites then
             current_sprite_index = 1
         end
-        
         player.current_sprite = player.walking_sprites[current_sprite_index]
     end
 end
@@ -101,9 +100,6 @@ function player.draw()
     if not player_loaded then
         return
     end
-
-    --player.animate_player_sprite()
-
     player.update_player_sprite_direction()
     
     love.graphics.draw(player.current_sprite, player.position.x - player.sprite_offset.x, player.position.y - player.sprite_offset.y, 0, player.scale.x, player.scale.y)

@@ -14,12 +14,23 @@ function Coin:new(pos_x, pos_y)
     coin.tag = "coin"
     coin.body = love.physics.newBody(world, pos_x, pos_y, 'dynamic')
     --coin.shape = love.physics.newCircleShape(0, 0, 10)
-    coin.sprite = love.graphics.newImage('assets/sprites/coin/coin-frame-1.png')
+    --coin.sprite = love.graphics.newImage('assets/sprites/coin/coin-frame-1.png')
     coin.scale = { x = 0.35, y = 0.35 }
     coin.image_size = { width = 100, height = 100 }
     coin.is_active = true
+    --coin.sprite_sheet = {}
+    
+    local sprites = {}
+    local numFrames = 11 
+    local basePath = "assets/sprites/coin/coin-frame-"
 
-    coin.sprite:setFilter('nearest', 'nearest')
+    for i = 1, numFrames do
+        sprites[i] = love.graphics.newImage(basePath .. i .. ".png")
+        sprites[i]:setFilter("nearest", "nearest")
+    end
+    coin.sprite_sheet = sprites
+    coin.sprite = coin.sprite_sheet[1]
+    
 
     coin.sprite_offset = { x = (coin.image_size.width * coin.scale.x / 2), y = (coin.image_size.height * coin.scale.y / 2) }
 
@@ -32,9 +43,29 @@ function Coin:new(pos_x, pos_y)
     return coin
 end
 
+local current_sprite_index = 1
+local initialTime = love.timer.getTime()
+local interval = 0.15
+local elapsedTime = 0
+
+
+function Coin:animate_coin_sprite()
+    elapsedTime = love.timer.getTime() - initialTime
+    
+    if elapsedTime >= interval then
+        current_sprite_index = current_sprite_index + 1
+
+        if current_sprite_index > #self.sprite_sheet then
+            current_sprite_index = 1
+        end
+
+        initialTime = love.timer.getTime()
+    end
+end
+
 function Coin:draw()
     local coin_pos_x, coin_pos_y = self.body:getWorldCenter()    
-    love.graphics.draw(self.sprite, coin_pos_x - self.sprite_offset.x, coin_pos_y - self.sprite_offset.y, 0, self.scale.x, self.scale.y)
+    love.graphics.draw(self.sprite_sheet[current_sprite_index], coin_pos_x - self.sprite_offset.x, coin_pos_y - self.sprite_offset.y, 0, self.scale.x, self.scale.y)
     love.graphics.circle('line', coin_pos_x, coin_pos_y, self.radius)
 end
 

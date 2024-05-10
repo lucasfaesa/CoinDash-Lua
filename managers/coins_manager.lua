@@ -76,9 +76,11 @@ function coins_manager.check_if_need_to_deactivate_coins()
 end
 
 function coins_manager.draw()
+
     for i, coin in ipairs(coins_manager.current_active_coins) do
         if(coin.is_active) then
             --print(i)
+            coin:animate_coin_sprite()
             coin:DRAW()
         end
     end
