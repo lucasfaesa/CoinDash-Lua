@@ -3,6 +3,10 @@ local begin_contact_callback = function (fixture_a, fixture_b, contact)
     local name_a = fixture_a:getUserData()
     local name_b = fixture_b:getUserData()
     print('beginning contact', name_a.tag, name_b.tag, contact)
+
+    if(name_b.tag == "coin" and name_a.tag ~= "coin") then
+        name_b:pickedUp()
+    end
 end
 
 local end_contact_callback = function (fixture_a, fixture_b, contact)

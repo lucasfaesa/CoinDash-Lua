@@ -3,7 +3,9 @@
 local world = require("entities/world")
 require("entities/background")
 require("entities/player")
-require("entities/coin")
+--require("entities/coin")
+require('managers.score_manager')
+require('managers/coins_manager')
 
 local paused = false
 
@@ -19,13 +21,17 @@ local system_key_map = {
 -- ## LOAD ##
 function love.load()
     player.LOAD()
+    score_manager.LOAD()
+    coins_manager.instantiate_coins(1)
 end
 
 -- ## DRAW ##
 function love.draw()
     -- ALWAYS pay attention to order of drawing, background needs to be draw first
     background.DRAW()
-    coin.DRAW()
+    score_manager.DRAW()
+    coins_manager.DRAW()
+    --coin.DRAW()
     player.DRAW()
 end
 
