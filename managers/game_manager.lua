@@ -32,7 +32,7 @@ function game_manager.start_next_level()
 end
 
 function game_manager.delay_to_next_level()
-    next_level_delay = cron.after(1, game_manager.start_next_level)
+    next_level_delay = cron.after(0.5, game_manager.start_next_level)
     update_timer_next_level_delay = true
 end
 

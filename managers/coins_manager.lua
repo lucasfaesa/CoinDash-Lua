@@ -9,7 +9,7 @@ coins_manager.game_manager_ref = nil
 coins_manager.total_coins = 0
 coins_manager.picked_up_coins = 0
 coins_manager.current_active_coins = {}
-coins_manager.minimum_coins = 6
+coins_manager.minimum_coins = 3
 coins_manager.coin_to_be_deactivated = {}
 
 local screen_size = {width = love.graphics.getWidth(), height = love.graphics.getHeight()}

@@ -33,15 +33,14 @@ function Coin:new(pos_x, pos_y)
 end
 
 function Coin:draw()
-    local coin_pos_x, coin_pos_y = self.body:getWorldCenter()
-    --print('here: x' .. coin_pos_x .. ' y ' .. coin_pos_y)
-    
+    local coin_pos_x, coin_pos_y = self.body:getWorldCenter()    
     love.graphics.draw(self.sprite, coin_pos_x - self.sprite_offset.x, coin_pos_y - self.sprite_offset.y, 0, self.scale.x, self.scale.y)
     love.graphics.circle('line', coin_pos_x, coin_pos_y, self.radius)
 end
 
 function Coin:activate_coin(x, y)
     self.body:setPosition(x, y)
+    self.body:setActive(true)
     self.is_active = true
 end
 
