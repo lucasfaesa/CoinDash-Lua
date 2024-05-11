@@ -8,7 +8,6 @@ time_manager.can_update_timer = false
 local kenney_bold_font = love.graphics.newFont('assets/fonts/Kenney Bold.ttf', 17)
 
 function time_manager.game_started()
-    time_manager.can_update_timer = true
     time_manager.reset_timer()
 end
 

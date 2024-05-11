@@ -43,7 +43,7 @@ function coins_manager.coin_picked(coin)
 end
 
 function coins_manager.check_coins_pickup()
-    --print('picked: ' .. coins_manager.picked_up_coins  .. 'total ' .. coins_manager.total_coins)
+    print('picked: ' .. coins_manager.picked_up_coins  .. 'total ' .. coins_manager.total_coins)
     if(coins_manager.picked_up_coins == coins_manager.total_coins) then
         coins_manager.reset()
         coins_manager.game_manager_ref.delay_to_next_level()
@@ -53,6 +53,10 @@ end
 function coins_manager.reset()
     coins_manager.total_coins = 0
     coins_manager.picked_up_coins = 0
+
+    for i, coin in ipairs(coins_manager.current_active_coins) do
+        coin:destroy_coin()
+    end
     coins_manager.current_active_coins = {}
     coins_manager.coin_to_be_deactivated = {}
 end

@@ -80,6 +80,13 @@ function Coin:deactivate_coin()
     self.is_active = false
 end
 
+function Coin:destroy_coin()
+    self.fixture:destroy()
+    self.body:destroy()
+    self.body = nil
+    self.is_active = false
+end
+
 function Coin:pickedUp()
     coins_manager.coin_picked(self)
 end
