@@ -2,7 +2,7 @@ score_manager = {}
 
 score_manager.currentScore = 0;
 
-local kenney_bold_font = love.graphics.newFont('assets/fonts/Kenney Bold.ttf', 17)
+local kenney_bold_font = love.graphics.newFont('assets/fonts/Kenney Bold.ttf', 24)
 
 function score_manager.reset()
     score_manager.currentScore = 0;
@@ -17,7 +17,7 @@ function score_manager.load()
 end
 
 function score_manager.draw()
-    love.graphics.print("score  " .. score_manager.currentScore ,355,10)
+    love.graphics.print("score: " .. score_manager.currentScore ,305,10)
 end
 
 function score_manager.LOAD()

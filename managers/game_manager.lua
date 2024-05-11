@@ -72,16 +72,16 @@ function game_manager.end_game()
     game_manager.main_script_ref.game_ended()
 end
 
-local kenney_bold_font_header = love.graphics.newFont('assets/fonts/Kenney Bold.ttf', 42)
-local kenney_bold_font_subtitle = love.graphics.newFont('assets/fonts/Kenney Bold.ttf', 17)
+local kenney_bold_font_header = love.graphics.newFont('assets/fonts/Kenney Bold.ttf', 51)
+local kenney_bold_font_subtitle = love.graphics.newFont('assets/fonts/Kenney Bold.ttf', 19)
 
 function game_manager.load()
     
 end
 
 function game_manager.draw()
-    love.graphics.print("COIN DASH",kenney_bold_font_header ,80,240)
-    love.graphics.print("press 'enter' to continue",kenney_bold_font_subtitle ,60,360)
+    love.graphics.print("COIN DASH",kenney_bold_font_header ,43,240)
+    love.graphics.print("press 'enter' to continue",kenney_bold_font_subtitle ,53,360)
 end
 
 function game_manager.DRAW()

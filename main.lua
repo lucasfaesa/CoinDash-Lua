@@ -16,9 +16,9 @@ local system_key_map = {
     escape = function() 
         love.event.quit() 
     end,
-    space = function() 
-        paused = not paused 
-    end,
+    --space = function() 
+    --    paused = not paused 
+    --end,
     ['return'] = function()
         if in_main_title then
             game_manager.start_game()

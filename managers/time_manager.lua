@@ -31,7 +31,7 @@ function time_manager.decrease_time(dt)
 end
 
 function time_manager.draw()
-    love.graphics.print("time  " .. math.floor(math.abs(time_manager.current_time)) ,10,10)
+    love.graphics.print("time: " .. math.floor(math.abs(time_manager.current_time)) ,10,10)
 end
 
 function time_manager.LOAD()
