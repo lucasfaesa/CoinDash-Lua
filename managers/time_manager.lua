@@ -1,6 +1,6 @@
 time_manager = {}
 
-time_manager.game_time = 15
+time_manager.game_time = 10
 time_manager.current_time = 0
 time_manager.game_manager_ref = nil
 time_manager.can_update_timer = false
