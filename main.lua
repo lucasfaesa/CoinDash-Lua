@@ -1,13 +1,16 @@
 
-
 local world = require("entities/world")
 require("entities/background")
 require("entities/player")
 require('managers.score_manager')
 require('managers/coins_manager')
 require('managers.game_manager')
+require('managers.time_manager')
+
+main ={}
 
 local paused = false
+local in_main_title = true
 
 local system_key_map = {
     escape = function() 
@@ -16,14 +19,27 @@ local system_key_map = {
     space = function() 
         paused = not paused 
     end,
+    ['return'] = function()
+        if in_main_title then
+            game_manager.start_game()
+            in_main_title = false
+        end
+    end
 }
+
+function main.game_ended()
+    in_main_title =true
+end
 
 -- ## LOAD ##
 function love.load()
     --player.LOAD()
+    game_manager.LOAD()
+    game_manager.main_script_ref = main
+    time_manager.LOAD()
     score_manager.LOAD()
     --coins_manager.instantiate_coins(1)
-    game_manager.start_game()
+    --game_manager.start_game()
 end
 
 -- ## DRAW ##
@@ -33,6 +49,8 @@ function love.draw()
     coins_manager.DRAW()
     player.DRAW()
     score_manager.DRAW()
+    time_manager.DRAW()
+    game_manager.DRAW()
 end
 
 -- ## KEY PRESSES LISTENER ##
@@ -49,6 +67,10 @@ function love.keyreleased(released_key)
 end
 
 function love.update(dt)
+    if paused then
+        return
+    end
+
     if game_manager.can_check_collisions then
         world:update(dt)
     end
@@ -56,6 +78,6 @@ function love.update(dt)
     player.UPDATE(dt)
     game_manager.UPDATE(dt)
     coins_manager.UPDATE(dt)
-
+    time_manager.UPDATE(dt)
 
 end

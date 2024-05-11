@@ -66,7 +66,7 @@ end
 function Coin:draw()
     local coin_pos_x, coin_pos_y = self.body:getWorldCenter()    
     love.graphics.draw(self.sprite_sheet[current_sprite_index], coin_pos_x - self.sprite_offset.x, coin_pos_y - self.sprite_offset.y, 0, self.scale.x, self.scale.y)
-    love.graphics.circle('line', coin_pos_x, coin_pos_y, self.radius)
+    --love.graphics.circle('line', coin_pos_x, coin_pos_y, self.radius)
 end
 
 function Coin:activate_coin(x, y)

@@ -4,6 +4,10 @@ score_manager.currentScore = 0;
 
 local kenney_bold_font = love.graphics.newFont('assets/fonts/Kenney Bold.ttf', 17)
 
+function score_manager.reset()
+    score_manager.currentScore = 0;
+end
+
 function score_manager.AddPoints(qty)
     score_manager.currentScore = score_manager.currentScore + qty
 end

@@ -31,7 +31,7 @@ function player.load()
     player.walking_sprites = {}
     player.current_sprite = {}
     player.set_sprites_sheet()
-    
+    player.can_move = true
 
     player.scale = { x = 2.2, y = 2.2}
     player.sprite_offset = {x = (player.image_size.width * player.scale.x / 2), y = (player.image_size.height * player.scale.y / 2)}
@@ -103,7 +103,7 @@ function player.draw()
     player.update_player_sprite_direction()
     
     love.graphics.draw(player.current_sprite, player.position.x - player.sprite_offset.x, player.position.y - player.sprite_offset.y, 0, player.scale.x, player.scale.y)
-    love.graphics.polygon('line', player.body:getWorldPoints(player.shape:getPoints()))
+    --love.graphics.polygon('line', player.body:getWorldPoints(player.shape:getPoints()))
 end
 
 function player.update_player_sprite_direction()
@@ -125,6 +125,10 @@ function player.key_press_check(key, pressed_key)
 end
 
 function player.move(dt)
+    if not player.can_move then
+        return
+    end
+
     local horizontal_movement = player.move_input.left + player.move_input.right
     local vertical_movement = player.move_input.up + player.move_input.down
 
